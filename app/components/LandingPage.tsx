@@ -20,6 +20,13 @@ const LandingPage = () => {
     e.preventDefault();
 
     if (email) {
+      const registeredEmails = JSON.parse(localStorage.getItem('registeredEmails') || '[]');
+
+      if (registeredEmails.includes(email)) {
+        setMessage('You are already registered with us.');
+        return;
+      }
+
       // 1. Send email to the user
       const userTemplateParams = {
         user_email: email,
@@ -31,6 +38,10 @@ const LandingPage = () => {
           console.log('User email sent successfully:', result.text);
           setMessage('Thank you! We will notify you when we launch.');
           setEmail(''); // Clear email input
+
+          // Add email to localStorage on successful submission
+          const updatedEmails = [...registeredEmails, email];
+          localStorage.setItem('registeredEmails', JSON.stringify(updatedEmails));
         }, (error) => {
           console.log('Failed to send user email:', error.text);
           setMessage('Failed to process your request. Please try again later.');

@@ -40,13 +40,19 @@ const CountdownTimer = () => {
   }, []);
 
   const timerComponents = Object.keys(timeLeft).map((interval) => {
-    if (!timeLeft[interval]) {
+    if (timeLeft[interval] === undefined) {
       return null;
     }
 
+    let value: string | number = timeLeft[interval]!;
+
+    if (interval !== 'days') {
+        value = String(value).padStart(2, '0');
+    }
+
     return (
-      <div key={interval} className="text-center">
-        <div className="text-xl sm:text-3xl font-bold">{timeLeft[interval]}</div>
+      <div key={interval} className="text-center w-16">
+        <div className="text-xl sm:text-3xl font-bold">{value}</div>
         <div className="text-xs sm:text-xs capitalize">{interval}</div>
       </div>
     );
@@ -58,19 +64,19 @@ const CountdownTimer = () => {
         timerComponents.length ? timerComponents : <span>Time&apos;s up!</span>
       ) : (
         <div className="flex space-x-4">
-          <div className="text-center">
+          <div className="text-center w-16">
             <div className="text-xl sm:text-3xl font-bold">--</div>
             <div className="text-xs sm:text-xs capitalize">days</div>
           </div>
-          <div className="text-center">
+          <div className="text-center w-16">
             <div className="text-xl sm:text-3xl font-bold">--</div>
             <div className="text-xs sm:text-xs capitalize">hours</div>
           </div>
-          <div className="text-center">
+          <div className="text-center w-16">
             <div className="text-xl sm:text-3xl font-bold">--</div>
             <div className="text-xs sm:text-xs capitalize">minutes</div>
           </div>
-          <div className="text-center">
+          <div className="text-center w-16">
             <div className="text-xl sm:text-3xl font-bold">--</div>
             <div className="text-xs sm:text-xs capitalize">seconds</div>
           </div>
