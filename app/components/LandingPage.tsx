@@ -9,23 +9,46 @@ const LandingPage = () => {
   const [message, setMessage] = useState('');
   const form = useRef<HTMLFormElement>(null);
 
-  const SERVICE_ID = 'service_otbykvo';
-  const TEMPLATE_ID = 'template_0eecaim';
-  const PUBLIC_KEY = 'esBdZb18IMwdoeOPm';
+  const SERVICE_ID = 'service_wwz6y9h';
+  // Template for the email sent to the user
+  const TEMPLATE_ID_USER = 'template_7w9zhwi'; 
+  // IMPORTANT: Create a new template for the admin notification and add its ID here
+  const TEMPLATE_ID_ADMIN = 'template_pkir7h4'; 
+  const PUBLIC_KEY = 'yANzsioyREUuX2qRK';
 
   const handleNotifyMe = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (email && form.current) {
-      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+    if (email) {
+      // 1. Send email to the user
+      const userTemplateParams = {
+        user_email: email,
+        message: "you will be notified when we will launch , thanks for registering with us",
+      };
+
+      emailjs.send(SERVICE_ID, TEMPLATE_ID_USER, userTemplateParams, PUBLIC_KEY)
         .then((result) => {
-          console.log(result.text);
+          console.log('User email sent successfully:', result.text);
           setMessage('Thank you! We will notify you when we launch.');
-          setEmail(''); // Clear email input on success
+          setEmail(''); // Clear email input
         }, (error) => {
-          console.log(error.text);
-          setMessage('Failed to send email. Please try again later.');
+          console.log('Failed to send user email:', error.text);
+          setMessage('Failed to process your request. Please try again later.');
         });
+
+      // 2. Send email to admin
+      const adminTemplateParams = {
+        user_email: email,
+        message: `We have to notify ${email} when we will launch.`,
+      };
+
+      emailjs.send(SERVICE_ID, TEMPLATE_ID_ADMIN, adminTemplateParams, PUBLIC_KEY)
+        .then((result) => {
+          console.log('Admin notification sent successfully:', result.text);
+        }, (error) => {
+          console.log('Failed to send admin notification:', error.text);
+        });
+
     } else {
       setMessage('Please enter a valid email address.');
     }
@@ -82,11 +105,10 @@ const LandingPage = () => {
                 className="flex-grow bg-transparent border border-white rounded-full px-6 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-300 text-left"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                name="user_email" // Added name attribute for Email.js
+                name="user_email"
               />
-              <input type="hidden" name="message" value="You will be notified when we launch!" />
               <button
-                type="submit" // Changed to type="submit"
+                type="submit"
                 className="bg-white text-black font-light border-white border-1 cursor-pointer rounded-full px-8 py-3 hover:bg-transparent hover:text-white transition-all duration-300"
               >
                 NOTIFY ME
