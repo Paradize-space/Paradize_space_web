@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   title: "Paradize",
   description: "Paradize Space",
   icons: {
-    icon: '/images/logo.svg',
+    icon: '/images/logo-2.svg',
   },
 };
 
@@ -37,6 +38,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} font-sans antialiased`}
       >
         {children}
+        <Footer />
       </body>
     </html>
   );
