@@ -22,5 +22,56 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes paradize-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-paradize-entrance {
+  animation: paradize-entrance 1s ease-out forwards;
+}
+
+.text-glow {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 1s ease-out forwards;
+  animation-delay: 0.7s; /* Adjusted delay */
+  opacity: 0; /* Start hidden */
+}
+
+@keyframes line-grow {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: 96px; /* Changed from 100% to 96px */
+    opacity: 1;
+  }
+}
+
+.animate-line-grow {
+  animation: line-grow 0.5s ease-out forwards;
+  animation-delay: 0.5s; /* Play after text-grow, before slide-in */
 }
