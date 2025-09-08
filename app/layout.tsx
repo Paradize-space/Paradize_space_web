@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   title: "Paradize",
   description: "Paradize Space",
   icons: {
-    icon: '/images/logo.svg',
+    icon: '/images/logo-2.svg',
   },
 };
 
