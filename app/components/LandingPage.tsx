@@ -76,7 +76,7 @@ const LandingPage = () => {
           muted
           src="/videos/galaxy-2.webm"
         ></video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80"></div>
+        <div className="absolute inset-0 contrast-100 bg-black opacity-15"></div>
       </div>
 
       {/* Content */}
