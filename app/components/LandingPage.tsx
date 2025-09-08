@@ -99,11 +99,6 @@ const LandingPage = () => {
               <div className="text-white text-4xl md:text-5xl font-[100] text-left pointer-events-none">
                 COMING <br className="hidden md:block"></br>SOON
               </div>
-              <div className="flex items-center justify-start space-x-2 mt-4">
-                <span className="text-white text-lg font-[100] tracking-tight pointer-events-none">
-                  DISCUSS. DEVELOP. GROW.
-                </span>
-              </div>
             </div>
           </div>
 
