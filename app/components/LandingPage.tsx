@@ -70,7 +70,7 @@ const LandingPage = () => {
       {/* Background Video Placeholder */}
       <div className="absolute inset-0 z-0">
         <video
-          className="h-full w-full object-cover contrast-100 bg-black opacity-60"
+          className="h-full w-full object-cover contrast-125 bg-black opacity-40"
           autoPlay
           loop
           muted
