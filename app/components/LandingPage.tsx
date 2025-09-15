@@ -72,8 +72,6 @@ const LandingPage = () => {
         <video
 
           className="h-full w-full object-cover contrast-125 opacity-60"
-          className="h-full w-full object-cover contrast-125 bg-black opacity-40"
-
           autoPlay
           loop
           muted
