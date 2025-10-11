@@ -20,6 +20,12 @@ const LandingPage = () => {
   // Video transition logic
   const videoOpacity1 = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const videoOpacity2 = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
+  
+  // Define missing transform variables
+  const backgroundBlur = useTransform(scrollYProgress, [0, 1], [0, 10]);
+  const textBlur = useTransform(scrollYProgress, [0, 0.8], [0, 5]);
+  const missionY = useTransform(scrollYProgress, [0.5, 1], [100, 0]);
+  const missionOpacity = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
 
   const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
   const TEMPLATE_ID_USER = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_USER!;
