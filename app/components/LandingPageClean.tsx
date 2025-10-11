@@ -1,30 +1,41 @@
 "use client";
 
 import { useState, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import CountdownTimer from './CountdownTimer';
 import emailjs from '@emailjs/browser';
 
 const LandingPage = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [contentFadeLeft, setContentFadeLeft] = useState(false);
   const form = useRef<HTMLFormElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-  
-  // Video transition logic
-  const videoOpacity1 = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const videoOpacity2 = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
+  const router = useRouter();
+  const SERVICE_ID = 'service_wwz6y9h';
+  const TEMPLATE_ID_USER = 'template_7w9zhwi'; 
+  const TEMPLATE_ID_ADMIN = 'template_pkir7h4'; 
+  const PUBLIC_KEY = 'yANzsioyREUuX2qRK';
 
-  const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
-  const TEMPLATE_ID_USER = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_USER!;
-  const TEMPLATE_ID_ADMIN = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_ADMIN!;
-  const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+  const handleKnowMore = () => {
+    setIsAnimating(true);
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 1.5; 
+      videoRef.current.play();
+      
+      // Fade content to left after 3.2 seconds
+      setTimeout(() => {
+        setContentFadeLeft(true);
+      }, 3200);
+      
+      videoRef.current.onended = () => {
+        // Navigate to mission page immediately when video ends
+        router.push('/mission');
+      };
+    }
+  };
 
   const handleNotifyMe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,9 +58,8 @@ const LandingPage = () => {
         .then((result) => {
           console.log('User email sent successfully:', result.text);
           setMessage('Thank you! We will notify you when we launch.');
-          setEmail(''); // Clear email input
+          setEmail('');
 
-          // Add email to localStorage on successful submission
           const updatedEmails = [...registeredEmails, email];
           localStorage.setItem('registeredEmails', JSON.stringify(updatedEmails));
         }, (error) => {
@@ -60,7 +70,7 @@ const LandingPage = () => {
       // 2. Send email to admin
       const adminTemplateParams = {
         user_email: email,
-        message: `We have to notify ${email} when we will launch.`,
+        message: `New user registered: ${email}`,
       };
 
       emailjs.send(SERVICE_ID, TEMPLATE_ID_ADMIN, adminTemplateParams, PUBLIC_KEY)
@@ -76,38 +86,59 @@ const LandingPage = () => {
   };
 
   return (
-    <div ref={containerRef} className="relative h-[200vh] w-full text-white font-sans">
-      {/* Fixed Landing Page Content */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Background Video */}
+    <div className="relative min-h-screen w-full text-white font-sans">
+      {/* Landing Page Content */}
+      <div className="relative h-screen w-full overflow-hidden">
+        {/* Background Videos */}
         <div className="absolute inset-0 z-0">
+          {/* Default Galaxy Video */}
           <motion.video
             className="h-full w-full object-cover contrast-125 opacity-60"
             autoPlay
             loop
             muted
             src="/videos/galaxy-2.webm"
+            animate={{
+              opacity: isAnimating ? 0 : 0.6
+            }}
+            transition={{ duration: 1 }}
+          />
+          
+          {/* Animation Video */}
+          <video
+            ref={videoRef}
+            className="absolute inset-0 h-full w-full object-cover contrast-125"
+            loop={false}
+            muted
+            src="/videos/galaxy_anime.mp4"
             style={{
-              filter: useTransform(backgroundBlur, (value) => `blur(${value}px)`)
+              opacity: isAnimating ? 1 : 0,
+              transition: 'opacity 1s ease-in-out'
             }}
           />
+          
+          {/* Dark overlay for animation video */}
+          <div 
+            className="absolute inset-0 bg-black/40 pointer-events-none"
+            style={{
+              opacity: isAnimating ? 1 : 0,
+              transition: 'opacity 1s ease-in-out'
+            }}
+          />
+          
           <div className="absolute inset-0"></div>
         </div>
 
-        {/* Background Blur Overlay */}
-        <motion.div 
-          className="absolute inset-0 z-5 bg-black/10"
-          style={{
-            opacity: useTransform(scrollYProgress, [0, 0.3], [0, 1])
-          }}
-        />
-
-        {/* Original Content */}
+        {/* Landing Page Content */}
         <motion.div 
           className="relative z-10 flex flex-col h-full text-center md:text-left p-6 sm:p-12 md:p-20 lg:p-28"
-          style={{
-            opacity: useTransform(scrollYProgress, [0, 0.3], [1, 0.3]),
-            filter: useTransform(textBlur, (value) => `blur(${value}px)`)
+          animate={{
+            x: contentFadeLeft ? -1000 : 0,
+            opacity: contentFadeLeft ? 0 : 1
+          }}
+          transition={{
+            duration: 1.5,
+            ease: "easeInOut"
           }}
         >
           {/* Top Section - Logo, Coming Soon, Email */}
@@ -159,72 +190,23 @@ const LandingPage = () => {
               </form>
             </div>
           </div>
-        </motion.div>
 
-        {/* Mission Content Overlay */}
-        <motion.div
-          className="absolute inset-0 z-20 flex items-center justify-center p-6 sm:p-12"
-          style={{
-            y: missionY,
-            opacity: missionOpacity
-          }}
-        >
-          <div className="max-w-5xl mx-auto text-center">
-            {/* Blurred Background Container */}
-            <motion.div
-              className="bg-black/100 backdrop-blur-xl border-2 border-orange-400/80 rounded-3xl p-8 sm:p-12 md:p-16 shadow-2xl shadow-orange-500/20"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+          {/* Know More Button - Bottom Center */}
+          <div className="flex justify-center xl:-mb-10 xl:pb-0 pb-8">
+            <motion.button
+              onClick={handleKnowMore}
+              disabled={isAnimating}
+              className="relative bg-transparent border-1 border-white text-white font-[200] px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {/* Main Title */}
-              <motion.h1
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-[100] leading-tight mb-8 text-white drop-shadow-lg"
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-              >
-                Turning spare compute into one shared brain.
-              </motion.h1>
-
-              {/* Mission Statements */}
-              <motion.div className="space-y-6 text-base sm:text-lg md:text-xl lg:text-2xl font-[200] leading-relaxed">
-                <motion.p
-                  className="text-white/95 drop-shadow-md"
-                  initial={{ x: -30, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                  What if all the unused computers in the world could work together?
-                </motion.p>
-
-                <motion.p
-                  className="text-white/95 drop-shadow-md"
-                  initial={{ x: 30, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.9 }}
-                >
-                  A network that borrows free computing power to train models faster and cheaper.
-                </motion.p>
-
-                <motion.p
-                  className="text-white/95 drop-shadow-md"
-                  initial={{ x: -30, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 1.1 }}
-                >
-                  No big servers, just people sharing what they already have.
-                </motion.p>
-              </motion.div>
-
-              {/* Decorative element */}
-              <motion.div
-                className="w-24 h-0.5 bg-orange-400/80 mx-auto mt-8"
-                initial={{ width: 0 }}
-                animate={{ width: 96 }}
-                transition={{ duration: 1.0, delay: 1.3 }}
-              />
-            </motion.div>
+              {/* Background glow effect */}
+              <div className="absolute inset-0 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm scale-125"></div>
+              
+              <span className="relative z-10">
+                {isAnimating ? 'Loading...' : 'KNOW MORE'}
+              </span>
+            </motion.button>
           </div>
         </motion.div>
       </div>
