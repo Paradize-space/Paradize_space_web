@@ -1,7 +1,11 @@
-import LandingPage from './components/LandingPage';
+import LandingPage from './components/LandingPageClean';
 
 const Page = () => {
-  return <LandingPage />;
+  return (
+    <div>
+      <LandingPage />
+    </div>
+  );
 };
 
 export default Page;
