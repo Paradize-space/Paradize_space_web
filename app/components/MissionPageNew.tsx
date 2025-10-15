@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Particles from './Particles';
 import LaserFlow from './LaserFlow';
+import Footer from './Footer';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { useRouter } from 'next/navigation';
@@ -69,27 +70,28 @@ const MissionPageNew = () => {
   };
 
   return (
-    <div 
-      className="relative h-screen w-full overflow-hidden text-white font-sans"
-      style={{ backgroundColor: '#0a0015' }}
-      onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const el = revealRef.current;
-        if (el) {
-          el.style.setProperty('--mx', `${x}px`);
-          el.style.setProperty('--my', `${y}px`);
-        }
-      }}
-      onMouseLeave={() => {
-        const el = revealRef.current;
-        if (el) {
-          el.style.setProperty('--mx', '-9999px');
-          el.style.setProperty('--my', '-9999px');
-        }
-      }}
-    >
+    <>
+      <div 
+        className="relative h-screen w-full overflow-hidden text-white font-sans pt-8 pb-8 md:pt-0 md:pb-0"
+        style={{ backgroundColor: '#0a0015' }}
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const el = revealRef.current;
+          if (el) {
+            el.style.setProperty('--mx', `${x}px`);
+            el.style.setProperty('--my', `${y}px`);
+          }
+        }}
+        onMouseLeave={() => {
+          const el = revealRef.current;
+          if (el) {
+            el.style.setProperty('--mx', '-9999px');
+            el.style.setProperty('--my', '-9999px');
+          }
+        }}
+      >
       {/* Particles Background */}
       <div className="absolute inset-0 z-0" style={{ width: '100%', height: '100%' }}>
         <Particles
@@ -146,7 +148,7 @@ const MissionPageNew = () => {
         <div className="flex-1 flex items-center justify-start pl-8 sm:pl-16 lg:pl-24">
           <div className="max-w-4xl">
             <motion.h1 
-              className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-[100] leading-tight text-white mb-8"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-[100] leading-tight text-white mb-8"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -183,21 +185,21 @@ const MissionPageNew = () => {
               <div className="flex-1 space-y-6">
                 <div className="flex items-start space-x-4">
                   <div className="w-3 h-3 rounded-full bg-purple-400 mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-300 text-base sm:text-xl font-extralight leading-relaxed">
+                  <p className="text-gray-300 text-md sm:text-xl font-extralight leading-relaxed">
                     What if all the unused computers in the world could work together?
                   </p>
                 </div>
                 
                 <div className="flex items-start space-x-4">
                   <div className="w-3 h-3 rounded-full bg-purple-400 mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-300 text-base sm:text-xl font-extralight leading-relaxed">
+                  <p className="text-gray-300 text-md sm:text-xl font-extralight leading-relaxed">
                     A network that borrows free computing power to train models faster and cheaper.
                   </p>
                 </div>
                 
                 <div className="flex items-start space-x-4">
                   <div className="w-3 h-3 rounded-full bg-purple-400 mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-300 text-base sm:text-xl font-extralight leading-relaxed">
+                  <p className="text-gray-300 text-md sm:text-xl font-extralight leading-relaxed">
                     No big servers, just people sharing what they already have.
                   </p>
                 </div>
@@ -206,8 +208,8 @@ const MissionPageNew = () => {
               {/* Email Subscription */}
               <div className="flex-shrink-0 w-full lg:w-auto lg:min-w-[400px] lg:ml-[-50px]">
                 <div className="text-center mb-4">
-                  <h3 className="text-xl sm:text-3xl font-light text-white mb-2">Join the Network</h3>
-                  <p className="text-gray-400 text-lg">Be the first to know when we launch</p>
+                  <h3 className="text-lg sm:text-3xl font-light text-white mb-2">Join the Network</h3>
+                  <p className="text-gray-400 text-base sm:text-lg">Be the first to know when we launch</p>
                 </div>
                 
                 <form ref={form} onSubmit={handleNotifyMe} className="flex flex-col gap-3">
@@ -238,7 +240,9 @@ const MissionPageNew = () => {
           </motion.div>
         </div>
       </div>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 };
 
