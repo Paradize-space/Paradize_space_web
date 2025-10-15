@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import CountdownTimer from './CountdownTimer';
 import emailjs from '@emailjs/browser';
+import Footer from './Footer';
 
 const LandingPage = () => {
   const [email, setEmail] = useState('');
@@ -86,7 +87,8 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-full text-white font-sans">
+      <>
+          <div className="relative min-h-screen w-full text-white font-sans">
       {/* Landing Page Content */}
       <div className="relative h-screen w-full overflow-hidden">
         {/* Background Videos */}
@@ -110,7 +112,7 @@ const LandingPage = () => {
             className="absolute inset-0 h-full w-full object-cover contrast-125"
             loop={false}
             muted
-            src="/videos/galaxy_anime.mp4"
+            src="/videos/galaxy_anime.webm"
             style={{
               opacity: isAnimating ? 1 : 0,
               transition: 'opacity 1s ease-in-out'
@@ -211,6 +213,8 @@ const LandingPage = () => {
         </motion.div>
       </div>
     </div>
+    <Footer />
+      </>
   );
 };
 
