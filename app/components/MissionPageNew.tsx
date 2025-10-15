@@ -106,7 +106,8 @@ const MissionPageNew = () => {
         />
       </div>
 
-      {/* LaserFlow - Vertical Beam on Right */}
+      {/* 
+      LaserFlow - Vertical Beam on Right
       <div 
         className="absolute right-0 top-0 w-full h-full z-5 hidden xl:block"
         style={{ 
@@ -122,6 +123,7 @@ const MissionPageNew = () => {
           flowStrength={0.1}
         />
       </div>
+      */}
 
       {/* Logo Section - Top Left */}
       <div className="absolute top-4 left-4 sm:top-8 sm:left-8 z-20">
