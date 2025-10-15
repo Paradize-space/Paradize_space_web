@@ -110,7 +110,7 @@ const LandingPage = () => {
             className="absolute inset-0 h-full w-full object-cover contrast-125"
             loop={false}
             muted
-            src="/videos/galaxy_anime.mp4"
+            src="/videos/galaxy_anime.webm"
             style={{
               opacity: isAnimating ? 1 : 0,
               transition: 'opacity 1s ease-in-out'
