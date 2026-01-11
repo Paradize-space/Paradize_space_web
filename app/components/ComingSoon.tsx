@@ -166,7 +166,6 @@ const ComingSoon = () => {
             <div className="space-y-2">
               <div className="text-white/40 mb-3">NETWORK</div>
               <a href="/docs" className="block text-white/60 hover:text-white transition-colors">Docs</a>
-              <a href="/status" className="block text-white/60 hover:text-white transition-colors">Status</a>
               <a href="/explorer" className="block text-white/60 hover:text-white transition-colors">Explorer</a>
             </div>
             <div className="space-y-2">
