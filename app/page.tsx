@@ -1,11 +1,7 @@
-import LandingPage from './components/LandingPageClean';
+import ComingSoon from './components/ComingSoon';
 
 const Page = () => {
-  return (
-    <div>
-      <LandingPage />
-    </div>
-  );
+  return <ComingSoon />;
 };
 
 export default Page;
