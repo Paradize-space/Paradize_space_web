@@ -16,7 +16,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.542.0",
-    "next": "15.5.2",
+    "next": "16.1.1",
     "ogl": "^1.0.11",
     "pnpm": "^10.15.1",
     "react": "19.1.0",
