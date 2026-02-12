@@ -44,7 +44,7 @@ const ComingSoon = () => {
         </div>
         <div className="hidden md:flex items-center gap-6 text-xs text-white/40">
           <a href="/docs" className="hover:text-white transition-colors">DOCS</a>
-          <span className="border border-white/20 px-3 py-1.5 text-white hover:bg-white hover:text-black transition-all cursor-pointer">COMING SOON</span>
+          <span className="border border-white/20 px-3 py-1.5 text-white hover:bg-white hover:text-black transition-all">COMING SOON</span>
         </div>
       </header>
 
@@ -125,7 +125,7 @@ const ComingSoon = () => {
                 desc: 'Local 1km Hives minimize the speed-of-light bottleneck, enabling high-performance AI inference at 80% lower cost.',
               },
             ].map((item, i) => (
-              <div key={i} className="bg-black p-6 hover:bg-white/5 transition-all group cursor-default">
+              <div key={i} className="bg-black p-6 hover:bg-white/5 transition-all group">
                 <div className="text-[10px] tracking-[0.2em] text-white/40 mb-4 group-hover:text-white/60 transition-colors">0{i + 1}</div>
                 <h3 className="font-bold mb-3 group-hover:text-white transition-colors">{item.title}</h3>
                 <p className="text-sm text-white/50 leading-relaxed group-hover:text-white/70 transition-colors">{item.desc}</p>
@@ -143,7 +143,7 @@ const ComingSoon = () => {
               { value: '1km', label: 'HIVE RADIUS' },
               { value: '∞', label: 'SCALABILITY' },
             ].map((stat, i) => (
-              <div key={i} className="bg-black p-6 text-center hover:bg-white/5 transition-all group cursor-default">
+              <div key={i} className="bg-black p-6 text-center hover:bg-white/5 transition-all group">
                 <div className="text-3xl md:text-4xl font-bold mb-2 group-hover:scale-110 transition-transform">{stat.value}</div>
                 <div className="text-[10px] tracking-[0.15em] text-white/40 group-hover:text-white/60 transition-colors">{stat.label}</div>
               </div>
@@ -160,10 +160,10 @@ const ComingSoon = () => {
               Be part of the decentralized compute revolution. Whether you want to contribute idle GPU power or leverage the network for your AI workloads, we&apos;re building the future together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href="/discord" className="border border-white px-8 py-3 hover:bg-white hover:text-black transition-all cursor-pointer font-semibold">
+              <a href="/discord" className="border border-white px-8 py-3 hover:bg-white hover:text-black transition-all font-semibold">
                 JOIN COMMUNITY
               </a>
-              <a href="/docs" className="border border-white/20 px-8 py-3 text-white/60 hover:border-white hover:text-white transition-all cursor-pointer">
+              <a href="/docs" className="border border-white/20 px-8 py-3 text-white/60 hover:border-white hover:text-white transition-all">
                 READ DOCS
               </a>
             </div>
