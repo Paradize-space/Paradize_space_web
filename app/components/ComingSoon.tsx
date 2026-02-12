@@ -33,7 +33,7 @@ const ComingSoon = () => {
   return (
     <div className="min-h-screen bg-black text-white font-mono">
       {/* Header */}
-      <header className="border-b border-white/10 px-6 py-4 flex items-center justify-between">
+      <header className="border-b border-white/10 px-6 py-4 flex items-center justify-between backdrop-blur-sm bg-black/50 sticky top-0 z-50">
         <div className="flex items-center gap-3">
           <img 
             src="/images/logo.svg" 
@@ -44,7 +44,7 @@ const ComingSoon = () => {
         </div>
         <div className="hidden md:flex items-center gap-6 text-xs text-white/40">
           <a href="/docs" className="hover:text-white transition-colors">DOCS</a>
-          <span className="border border-white/20 px-3 py-1.5 text-white">COMING SOON</span>
+          <span className="border border-white/20 px-3 py-1.5 text-white hover:bg-white hover:text-black transition-all cursor-pointer">COMING SOON</span>
         </div>
       </header>
 
@@ -59,8 +59,8 @@ const ComingSoon = () => {
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-8">
               THE WORLD&apos;S<br />
-              <span className="text-white/40">IDLE GPUs.</span><br />
-              ONE SUPERCOMPUTER.
+              <span className="text-white/40 bg-gradient-to-r from-white/40 to-white/60 bg-clip-text">IDLE GPUs.</span><br />
+              ONE <span className="bg-gradient-to-r from-white via-white to-white/80 bg-clip-text">SUPERCOMPUTER</span>.
             </h1>
 
             <div className="flex items-center gap-3 mb-8">
@@ -70,20 +70,20 @@ const ComingSoon = () => {
           </div>
 
           {/* Terminal */}
-          <div className="border border-white/10 bg-black">
+          <div className="border border-white/10 bg-black hover:border-white/20 transition-all">
             <div className="border-b border-white/10 px-4 py-2 flex items-center gap-2">
-              <div className="w-2 h-2 bg-white/20" />
-              <div className="w-2 h-2 bg-white/20" />
-              <div className="w-2 h-2 bg-white/20" />
+              <div className="w-2 h-2 bg-green-500/50 rounded-full" />
+              <div className="w-2 h-2 bg-yellow-500/50 rounded-full" />
+              <div className="w-2 h-2 bg-red-500/50 rounded-full" />
               <span className="text-[10px] text-white/30 ml-2">paradize-network</span>
             </div>
-            <div className="p-4 text-xs space-y-1 min-h-[200px]">
+            <div className="p-4 text-xs space-y-1 min-h-[200px] bg-gradient-to-b from-black to-black/95">
               {terminalLines.map((line, i) => (
-                <div key={i} className={line?.includes('node_found') || line?.includes('hive_status') ? 'text-white' : 'text-white/50'}>
+                <div key={i} className={line?.includes('node_found') || line?.includes('hive_status') ? 'text-green-400' : 'text-white/50'}>
                   {line}
                 </div>
               ))}
-              <span className="text-white animate-pulse">█</span>
+              <span className="text-green-400 animate-pulse">█</span>
             </div>
           </div>
         </div>
@@ -125,10 +125,10 @@ const ComingSoon = () => {
                 desc: 'Local 1km Hives minimize the speed-of-light bottleneck, enabling high-performance AI inference at 80% lower cost.',
               },
             ].map((item, i) => (
-              <div key={i} className="bg-black p-6">
-                <div className="text-[10px] tracking-[0.2em] text-white/40 mb-4">0{i + 1}</div>
-                <h3 className="font-bold mb-3">{item.title}</h3>
-                <p className="text-sm text-white/50 leading-relaxed">{item.desc}</p>
+              <div key={i} className="bg-black p-6 hover:bg-white/5 transition-all group cursor-default">
+                <div className="text-[10px] tracking-[0.2em] text-white/40 mb-4 group-hover:text-white/60 transition-colors">0{i + 1}</div>
+                <h3 className="font-bold mb-3 group-hover:text-white transition-colors">{item.title}</h3>
+                <p className="text-sm text-white/50 leading-relaxed group-hover:text-white/70 transition-colors">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -143,11 +143,30 @@ const ComingSoon = () => {
               { value: '1km', label: 'HIVE RADIUS' },
               { value: '∞', label: 'SCALABILITY' },
             ].map((stat, i) => (
-              <div key={i} className="bg-black p-6 text-center">
-                <div className="text-3xl md:text-4xl font-bold mb-2">{stat.value}</div>
-                <div className="text-[10px] tracking-[0.15em] text-white/40">{stat.label}</div>
+              <div key={i} className="bg-black p-6 text-center hover:bg-white/5 transition-all group cursor-default">
+                <div className="text-3xl md:text-4xl font-bold mb-2 group-hover:scale-110 transition-transform">{stat.value}</div>
+                <div className="text-[10px] tracking-[0.15em] text-white/40 group-hover:text-white/60 transition-colors">{stat.label}</div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="mt-24 border-t border-white/10 pt-16">
+          <div className="border border-white/10 bg-gradient-to-br from-white/5 to-transparent p-12 text-center hover:border-white/20 transition-all">
+            <div className="text-[10px] tracking-[0.3em] text-white/40 mb-4">JOIN THE NETWORK</div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Computing?</h2>
+            <p className="text-white/60 mb-8 max-w-2xl mx-auto">
+              Be part of the decentralized compute revolution. Whether you want to contribute idle GPU power or leverage the network for your AI workloads, we&apos;re building the future together.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a href="/discord" className="border border-white px-8 py-3 hover:bg-white hover:text-black transition-all cursor-pointer font-semibold">
+                JOIN COMMUNITY
+              </a>
+              <a href="/docs" className="border border-white/20 px-8 py-3 text-white/60 hover:border-white hover:text-white transition-all cursor-pointer">
+                READ DOCS
+              </a>
+            </div>
           </div>
         </section>
       </main>
